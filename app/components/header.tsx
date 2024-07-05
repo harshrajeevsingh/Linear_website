@@ -1,6 +1,7 @@
 import { Container } from "./container";
 import Link from "next/link";
 import { Logo } from "./icons/logo";
+import { Button } from "./button";
 
 export const Header = () => {
   return (
@@ -10,7 +11,7 @@ export const Header = () => {
           <Logo className="w-[1.8rem] h-[1.8rem] mr-4" /> Linear
         </Link>
         <nav className="h-full">
-          <ul className="flex items-center h-full [&_a]:text-sm [&_li]:ml-6">
+          <ul className="flex items-center h-full [&_a]:text-sm [&_a:hover]:text-grey [&_a]:transition-colors  [&_li]:ml-6">
             <li>
               <Link href={"#"}>Features</Link>
             </li>
@@ -34,11 +35,11 @@ export const Header = () => {
             </li>
           </ul>
         </nav>
-        <div className=" flex ml-auto h-full items-center ">
+        <div className=" flex ml-auto h-full items-center">
           <Link href={"#"} className="text-sm mr-6">
             Log in
           </Link>
-          <Link href={"#"}>Sign up</Link>
+          <Button href="#"> Sign Up</Button>
         </div>
       </Container>
     </header>
