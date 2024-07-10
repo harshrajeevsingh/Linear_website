@@ -5,13 +5,17 @@ interface ButtonProps extends VariantProps<typeof buttonClasses> {
   children: React.ReactNode;
   href: string;
 }
-const buttonClasses = cva("rounded-full inline-flex items-center", {
+const buttonClasses = cva("relative rounded-full inline-flex items-center", {
   variants: {
     variant: {
-      primary:
-        "bg-primary-gradient hover:text-shadow hover:shadow-primary transition-[shadow, text-shadow]",
-      secondary: "",
-      tertiary: "",
+      primary: [
+        "bg-primary-gradient hover:text-shadow hover:shadow-primary transition-[shadow,text-shadow]",
+        "[&_.highlight]:ml-2",
+      ],
+      secondary: [
+        "text-off-white bg-white bg-opacity-10 border border-transparent-white backdrop-filter-[12px] hover:bg-opacity-20 transition-colors ease-in",
+        "[&_.highlight]:bg-transparent-white [&_.highlight]:rounded-full [&_.highlight]:px-2 [&_.highlight:last-child]:ml-2 [&_.highlight:last-child]:-mr-2 [&_.highlight:first-child]:-ml-2 [&_.highlight:first-child]:mr-2",
+      ],
     },
     size: {
       small: "text-xs px-3 h-7",
@@ -26,8 +30,8 @@ const buttonClasses = cva("rounded-full inline-flex items-center", {
 });
 export const Button = ({ children, href, variant, size }: ButtonProps) => {
   return (
-    <Link className={buttonClasses({ variant, size })} href={href}>
+    <button className={buttonClasses({ variant, size })} href={href}>
       {children}
-    </Link>
+    </button>
   );
 };

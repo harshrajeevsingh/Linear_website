@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import classNames from "classnames";
 
@@ -11,6 +11,24 @@ import { HamburgerIcon } from "./icons/hamburger";
 
 export const Header = () => {
   const [hamburgerMenuisOpen, setHamburgerMenuisOpen] = useState(false);
+  // scroll-Lock
+  useEffect(() => {
+    const html = document.querySelector("html");
+    if (html) html.classList.toggle("overflow-hidden", hamburgerMenuisOpen);
+  }, [hamburgerMenuisOpen]);
+
+  useEffect(() => {
+    const closeHamburgerNavigation = () => setHamburgerMenuisOpen(false);
+
+    window.addEventListener("orientationchange", closeHamburgerNavigation);
+    window.addEventListener("resize", closeHamburgerNavigation);
+
+    return () => {
+      window.removeEventListener("orientationchange", closeHamburgerNavigation);
+      window.removeEventListener("resize", closeHamburgerNavigation);
+    };
+  }, [setHamburgerMenuisOpen]);
+
   return (
     <header className="fixed left-0 top-0 w-full border-b border-transparent-white backdrop-blur-[12px]">
       <Container className="flex h-[var(--navigation-height)]">
@@ -32,7 +50,7 @@ export const Header = () => {
         >
           <nav
             className={classNames(
-              "fixed left-0 top-navigation-height h-[calc(100vh_-_var(--navigation-height))] w-full overflow-auto bg-background transition-opacity duration-500 md:relative md:top-0 md:block md:h-auto md:w-auto md:translate-x-0 md:bg-transparent md:opacity-100",
+              "fixed left-0 top-navigation-height h-[calc(100vh_-_var(--navigation-height))] w-full overflow-auto bg-background transition-opacity duration-500 md:relative md:top-0 md:block md:h-auto md:w-auto md:translate-x-0 md:bg-transparent md:opacity-100 md:transition-none",
               hamburgerMenuisOpen
                 ? "translate-x-0 opacity-100"
                 : "translate-x-[-100vw] opacity-0",
@@ -41,7 +59,7 @@ export const Header = () => {
             <ul
               className={classNames(
                 "flex h-full flex-col md:flex-row md:items-center [&_li]:ml-6 [&_li]:border-b [&_li]:border-grey-dark md:[&_li]:border-none",
-                "[&_a]:transition-300 ease-in [&_a:hover]:text-grey [&_a]:flex [&_a]:h-navigation-height [&_a]:w-full [&_a]:translate-y-8 [&_a]:items-center [&_a]:text-md [&_a]:transition-[colors,transform] md:[&_a]:translate-y-0 md:[&_a]:text-sm",
+                "[&_a]:transition-300 ease-in [&_a:hover]:text-grey [&_a]:flex [&_a]:h-navigation-height [&_a]:w-full [&_a]:translate-y-8 [&_a]:items-center [&_a]:text-md [&_a]:transition-[colors,transform] md:[&_a]:translate-y-0 md:[&_a]:text-sm md:[&_a]:transition-colors",
                 hamburgerMenuisOpen && "[&_a]:translate-y-0",
               )}
             >
