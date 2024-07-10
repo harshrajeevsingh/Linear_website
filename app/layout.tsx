@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Container } from "./components/container";
 import { Header } from "./components/header";
+import { Footer } from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,13 +16,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height initial-scale=1"
+        />
+      </head>
       <body>
         <div>
           <Header />
-          <main className="pt-[var(--navigation-height)]">{children}</main>
-          <footer>
-            <Container>footer here</Container>
-          </footer>
+          <main className="bg-page-gradient pt-[var(--navigation-height)]">
+            {children}
+          </main>
+          <Footer />
         </div>
       </body>
     </html>
